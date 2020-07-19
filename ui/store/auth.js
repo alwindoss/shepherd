@@ -19,6 +19,11 @@ export const mutations = {
     },
     toggle(state, todo) {
         todo.done = !todo.done
+    },
+    login(state, user) {
+        console.log('This is the login mutation' + JSON.stringify(user));
+        state.user.isLoggedIn = true;
+        state.user.userName = user.userName;
     }
 }
 
@@ -27,5 +32,6 @@ export const actions = {
         console.log('This is the login action');
         console.log(JSON.stringify(state));
         console.log(JSON.stringify(user));
+        state.commit('login', user)
     },
 }
