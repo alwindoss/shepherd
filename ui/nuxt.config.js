@@ -57,15 +57,58 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt/content
     '@nuxt/content'
   ],
   /*
+  ** Auth related configurations
+  */
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/auth/login', method: 'post', propertyName: 'token' },
+          logout: { url: '/auth/login', method: 'delete' },
+          user: { url: '/auth/user', method: 'get', propertyName: 'user' }
+        },
+        // tokenRequired: true,
+        // tokenType: 'bearer',
+        // globalToken: true,
+        // autoFetchUser: true
+      },
+      github: {
+        client_id: '0cc8af08088441c7eb55',
+        client_secret: '3fdcab531b99b19be140144c772bdc03b5faf36d'
+      },
+      // social: {
+      //   _scheme: 'oauth2',
+      //   authorization_endpoint: 'https://accounts.google.com/o/oauth2/auth',
+      //   userinfo_endpoint: 'https://www.googleapis.com/oauth2/v3/userinfo',
+      //   scope: ['openid', 'profile', 'email'],
+      //   access_type: undefined,
+      //   access_token_endpoint: undefined,
+      //   response_type: 'token',
+      //   token_type: 'Bearer',
+      //   redirect_uri: undefined,
+      //   client_id: '956094645609-ckjhmjvl19c5lvkbt6bcb842lod7pb0i.apps.googleusercontent.com',
+      //   token_key: 't7IMG6orchX9vS-QRB_uQg_J',
+      //   state: 'UNIQUE_AND_NON_GUESSABLE'
+      // },
+      // google: {
+      //   client_id: '956094645609-ckjhmjvl19c5lvkbt6bcb842lod7pb0i.apps.googleusercontent.com'
+
+      // }
+    }
+  },
+  /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {},
+  axios: {
+    baseURL: 'http://localhost:8080/api'
+  },
   /*
   ** Content module configuration
   ** See https://content.nuxtjs.org/configuration
@@ -97,5 +140,9 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+  },
+
+  router: {
+    middleware: ['auth']
   }
 }

@@ -7,7 +7,7 @@
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-card-text>
-          <v-form >
+          <v-form>
             <v-text-field
               label="Login"
               name="login"
@@ -39,16 +39,18 @@
 export default {
   data() {
     return {
-      userName: "defaultUserName",
-      password: "defaultPassword"
+      userName: "alwin",
+      password: "password"
     };
   },
   methods: {
     login: function() {
-      console.log("Thi sis the loginmethod");
-      console.log("User Name: " + this.userName);
-      console.log("Password: " + this.password);
-      this.$store.dispatch('auth/login', {"userName": this.userName, "password": this.password})
+      this.$auth.loginWith("local", {
+        data: {
+          userName: this.userName,
+          password: this.password
+        }
+      });
     }
   }
 };

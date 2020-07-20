@@ -1,5 +1,12 @@
 <template>
-  <div>This is the Home page</div>
+  <div>
+    <div v-if="$auth.loggedIn">
+      {{ $auth.user.email }}
+    </div>
+    <div v-else>
+      Hello Guest
+    </div>
+  </div>
 </template>
 
 <script>
