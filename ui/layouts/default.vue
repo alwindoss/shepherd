@@ -45,6 +45,14 @@
               <v-list-item-title>Login</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item link to="/register">
+            <v-list-item-action>
+              <v-icon>mdi-account-circle</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Register</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </div>
       </v-list>
     </v-navigation-drawer>
