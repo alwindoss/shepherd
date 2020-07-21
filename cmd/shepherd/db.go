@@ -96,6 +96,34 @@ func fetchUser(db *bolt.DB, email string) (*User, error) {
 	return usr, nil
 }
 
+func fetchUsers(db *bolt.DB) ([]*User, error) {
+	users := []*User{}
+	err := db.View(func(tx *bolt.Tx) error {
+		// Assume bucket exists and has keys
+		b := tx.Bucket([]byte("DB")).Bucket([]byte("USERS"))
+
+		c := b.Cursor()
+
+		for k, v := c.First(); k != nil; k, v = c.Next() {
+			usr := &User{}
+			err := gob.NewDecoder(bytes.NewReader(v)).Decode(usr)
+			if err != nil {
+				log.Printf("Error when decoding the user details")
+				continue
+			}
+			users = append(users, usr)
+			log.Printf("key=%s, value=%s\n", k, v)
+		}
+
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return users, nil
+}
+
 func createToken(db *bolt.DB, user *User) (string, error) {
 	expirationTime := time.Now().Add(5 * time.Minute)
 	claims := &Claims{

@@ -51,6 +51,7 @@
 
 <script>
 export default {
+  layout: 'unauthz',
   auth: false,
   data() {
     return {
@@ -70,11 +71,11 @@ export default {
       });
       this.$auth.loginWith("local", {
         data: {
-          userName: this.userName,
+          email: this.email,
           password: this.password
         }
       });
-      this.$router.push("/")
+      this.$router.push("/app")
     }
   }
 };

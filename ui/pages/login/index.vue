@@ -37,6 +37,7 @@
 
 <script>
 export default {
+  layout: 'unauthz',
   data() {
     return {
       email: "alwindoss84@gmail.com",
@@ -44,13 +45,14 @@ export default {
     };
   },
   methods: {
-    login: function() {
-      this.$auth.loginWith("local", {
+    login: async function() {
+      await this.$auth.loginWith("local", {
         data: {
           email: this.email,
           password: this.password
         }
       });
+      this.$router.push("/app")
     }
   }
 };

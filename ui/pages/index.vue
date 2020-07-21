@@ -1,11 +1,6 @@
 <template>
   <div>
-    <div v-if="$auth.loggedIn">
-      {{ $auth.user.email }}
-    </div>
-    <div v-else>
-      Hello Guest
-    </div>
+    This is Home Page for unauthorized users
   </div>
 </template>
 
@@ -14,9 +9,10 @@ import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
 export default {
+  layout: 'unauthz',
   components: {
     Logo,
     VuetifyLogo
-  }
+  },
 }
 </script>

@@ -25,6 +25,10 @@ type userResponseObj struct {
 	User *User `json:"user,omitempty"`
 }
 
+type usersResponseObj struct {
+	Users []*User `json:"users,omitempty"`
+}
+
 var jwtKey = []byte("my_secret_key")
 
 // Claims holds the claims
@@ -44,11 +48,14 @@ func main() {
 	methodsOK := handlers.AllowedMethods([]string{"GET", "POST", "OPTIONS", "DELETE", "PUT"})
 	credsOK := handlers.AllowCredentials()
 	// router.Use(cors)
+	router.Path("/api/user").Methods(http.MethodGet).Handler(&fetchUsersHandler{DB: db})
+	router.Path("/api/user").Methods(http.MethodPost).Handler(&registerUserHandler{DB: db})
+
 	router.Path("/api/auth/login").Methods(http.MethodPost).Handler(&loginHandler{DB: db})
 	router.Path("/api/auth/login").Methods(http.MethodDelete).Handler(&logoutHandler{DB: db})
-	router.Path("/api/auth/user").Methods(http.MethodGet).Handler(&fetchUsersHandler{DB: db})
+	router.Path("/api/auth/refresh").Methods(http.MethodGet).Handler(&refreshTokenHandler{})
+	router.Path("/api/auth/user").Methods(http.MethodGet).Handler(&fetchUserHandler{})
 
-	router.Path("/api/user").Methods(http.MethodPost).Handler(&registerUserHandler{DB: db})
 	// router.
 	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(headersOK, originsOK, methodsOK, credsOK)(router)))
 }
