@@ -107,7 +107,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: 'http://localhost:8080/api'
+    baseURL: 'http://192.168.0.10:8080/api'
   },
   /*
   ** Content module configuration
@@ -140,6 +140,10 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+  },
+  server: {
+    port: 3000,
+    host: '0.0.0.0'
   },
 
   router: {

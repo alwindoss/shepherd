@@ -55,10 +55,10 @@ export default {
   auth: false,
   data() {
     return {
-      name: "Alwin Doss",
-      email: "alwindoss84@gmail.com",
-      userName: "alwindoss",
-      password: "password"
+      name: "",
+      email: "",
+      userName: "",
+      password: ""
     };
   },
   methods: {

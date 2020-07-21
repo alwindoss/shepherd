@@ -16,12 +16,10 @@ func extractToken(r *http.Request) (string, error) {
 		return "", fmt.Errorf("no token found")
 	}
 	bearerTokenSlice := strings.Split(bearerToken, " ")
-	log.Printf("DEBUG::Length of Token Header:  %d", len(bearerTokenSlice))
 	if len(bearerTokenSlice) != 2 {
 		log.Printf("token malformed")
 		return "", fmt.Errorf("token malformed")
 	}
-	log.Printf("DEBUG::Bearer Value: %s", bearerTokenSlice[0])
 	if strings.ToUpper(bearerTokenSlice[0]) != "BEARER" {
 		log.Printf("token malformed")
 		return "", fmt.Errorf("token malformed")

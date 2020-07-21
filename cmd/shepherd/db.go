@@ -112,7 +112,6 @@ func fetchUsers(db *bolt.DB) ([]*User, error) {
 				continue
 			}
 			users = append(users, usr)
-			log.Printf("key=%s, value=%s\n", k, v)
 		}
 
 		return nil

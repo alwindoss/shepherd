@@ -40,18 +40,23 @@ export default {
   layout: 'unauthz',
   data() {
     return {
-      email: "alwindoss84@gmail.com",
-      password: "password"
+      email: "",
+      password: ""
     };
   },
   methods: {
     login: async function() {
-      await this.$auth.loginWith("local", {
-        data: {
-          email: this.email,
-          password: this.password
-        }
-      });
+      try {
+        await this.$auth.loginWith("local", {
+          data: {
+            email: this.email,
+            password: this.password
+          }
+        });
+      } catch (error) {
+        this.$router.push("/")
+        return 
+      }
       this.$router.push("/app")
     }
   }
