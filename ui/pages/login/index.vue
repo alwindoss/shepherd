@@ -11,8 +11,8 @@
             <v-text-field
               label="Login"
               name="login"
-              v-model="userName"
-              prepend-icon="mdi-account"
+              v-model="email"
+              prepend-icon="mdi-email"
               type="text"
             ></v-text-field>
 
@@ -37,20 +37,22 @@
 
 <script>
 export default {
+  layout: 'unauthz',
   data() {
     return {
-      userName: "alwin",
+      email: "alwindoss84@gmail.com",
       password: "password"
     };
   },
   methods: {
-    login: function() {
-      this.$auth.loginWith("local", {
+    login: async function() {
+      await this.$auth.loginWith("local", {
         data: {
-          userName: this.userName,
+          email: this.email,
           password: this.password
         }
       });
+      this.$router.push("/app")
     }
   }
 };
