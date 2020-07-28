@@ -62,16 +62,17 @@
       <v-toolbar-title>Application</v-toolbar-title>
       <v-spacer />
       <div v-if="$auth.loggedIn">
-        <NavBarWelcome :name="$auth.user.name" />  
+        <NavBarWelcome :name="$auth.user.name" />
         <!-- {{$auth.user.name}} -->
       </div>
       <div v-else>
-        <NavBarWelcome name="Guest" />  
+        <NavBarWelcome name="Guest" />
       </div>
     </v-app-bar>
 
     <v-main>
-      <v-container class="fill-height" fluid>
+      <!-- <v-container class="fill-height" fluid> -->
+      <v-container fluid>
         <nuxt />
       </v-container>
     </v-main>
@@ -83,23 +84,23 @@
 </template>
 
 <script>
-import NavBarWelcome from '~/components/NavBarWelcome.vue';
+import NavBarWelcome from "~/components/NavBarWelcome.vue";
 
 export default {
   props: {
-    source: String
+    source: String,
   },
   data: () => ({
-    drawer: null
+    drawer: null,
   }),
   created() {
     this.$vuetify.theme.dark = true;
   },
   methods: {
-    logout: function() {
+    logout: function () {
       this.$auth.logout();
       this.$router.push("/logout");
-    }
-  }
+    },
+  },
 };
 </script>
