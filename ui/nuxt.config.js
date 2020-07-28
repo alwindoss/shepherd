@@ -107,7 +107,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: 'http://192.168.0.10:8080/api'
+    baseURL: 'http://192.168.55.15:8080/api'
   },
   /*
   ** Content module configuration
@@ -147,6 +147,7 @@ export default {
   },
 
   router: {
-    middleware: ['auth']
+    middleware: ['auth'],
+    base: '/shepherd'
   }
 }
