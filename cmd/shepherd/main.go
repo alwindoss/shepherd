@@ -5,6 +5,7 @@ import (
 
 	"github.com/alwindoss/prism"
 	"github.com/alwindoss/shepherd"
+	"github.com/go-chi/chi/v5"
 )
 
 // Handlers for different pages
@@ -39,11 +40,14 @@ func main() {
 		PartialsPath: "web/partials/*.html",
 		FS:           shepherd.WebFS,
 	}
+	r := chi.NewMux()
 	renderer := prism.New(&cfg)
-	http.HandleFunc("/", homeHandler(renderer))
-	http.HandleFunc("/about", aboutHandler(renderer))
-	http.HandleFunc("/contact", contactHandler(renderer))
+	pubFS := http.FileServerFS(shepherd.PublicFS)
+	r.Handle("/public/*", http.StripPrefix("/public/", pubFS))
+	r.HandleFunc("/", homeHandler(renderer))
+	r.HandleFunc("/about", aboutHandler(renderer))
+	r.HandleFunc("/contact", contactHandler(renderer))
 
 	// Serve on port 8080
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8080", r)
 }
