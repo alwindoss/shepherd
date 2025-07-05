@@ -1,0 +1,70 @@
+# flyctl launch added from .gitignore
+# If you prefer the allow list template instead of the deny list, see community template:
+# https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
+#
+# Binaries for programs and plugins
+**/*.exe
+**/*.exe~
+**/*.dll
+**/*.so
+**/*.dylib
+
+# Test binary, built with `go test -c`
+**/*.test
+
+# Code coverage profiles and other test artifacts
+**/*.out
+**/coverage.*
+**/*.coverprofile
+**/profile.cov
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Go workspace file
+**/go.work
+**/go.work.sum
+
+# env file
+**/.env
+
+# Editor/IDE
+# .idea/
+# .vscode/
+
+# My ignores
+**/bin
+**/tmp
+
+# flyctl launch added from ui/.gitignore
+# Logs
+ui/**/logs
+ui/**/*.log
+ui/**/npm-debug.log*
+ui/**/yarn-debug.log*
+ui/**/yarn-error.log*
+ui/**/pnpm-debug.log*
+ui/**/lerna-debug.log*
+
+ui/**/node_modules
+ui/**/.DS_Store
+ui/**/dist
+ui/**/dist-ssr
+ui/**/coverage
+ui/**/*.local
+
+ui/cypress/videos
+ui/cypress/screenshots
+
+# Editor directories and files
+ui/**/.vscode/*
+!ui/**/.vscode/extensions.json
+ui/**/.idea
+ui/**/*.suo
+ui/**/*.ntvs*
+ui/**/*.njsproj
+ui/**/*.sln
+ui/**/*.sw?
+
+ui/**/*.tsbuildinfo
+fly.toml

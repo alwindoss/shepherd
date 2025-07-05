@@ -28,7 +28,6 @@ dev:
 
 .PHONY: setup
 setup:
-	
 	go mod tidy
 	go get -v ./...
 
