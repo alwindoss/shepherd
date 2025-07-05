@@ -38,7 +38,7 @@ copy: build
 
 .PHONY: build-ui
 build-ui:
-	cd ui && npm i
+	cd ui && npm i && npm run build
 
 .PHONY: package
 package:
