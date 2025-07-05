@@ -11,46 +11,33 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-// Handlers for different pages
-// func homeHandler(renderer prism.Renderer) http.HandlerFunc {
-// 	return func(w http.ResponseWriter, r *http.Request) {
-// 		renderer.Render(w, "index.page.html", "base", map[string]interface{}{
-// 			"Title": "Home Page",
-// 		})
-// 	}
-// }
-
-// func aboutHandler(renderer prism.Renderer) http.HandlerFunc {
-// 	return func(w http.ResponseWriter, r *http.Request) {
-// 		renderer.Render(w, "about.page.html", "base", map[string]interface{}{
-// 			"Title": "About Us",
-// 		})
-// 	}
-// }
-
-// func contactHandler(renderer prism.Renderer) http.HandlerFunc {
-// 	return func(w http.ResponseWriter, r *http.Request) {
-// 		renderer.Render(w, "contact.page.html", "base", map[string]interface{}{
-// 			"Title": "Contact Us",
-// 		})
-// 	}
-// }
-
 func main() {
 	r := chi.NewMux()
-	// vueFS, _ := fs.Sub(shepherd.WebFS, "web/")
 	webFS, err := fs.Sub(shepherd.WebFS, "web")
 	if err != nil {
 		log.Fatal(err)
 	}
 	r.Handle("/*", http.FileServer(http.FS(webFS)))
-	// r.Handle("/public/*", http.StripPrefix("/public/", pubFS))
-	// r.HandleFunc("/", homeHandler(renderer))
-	// r.HandleFunc("/about", aboutHandler(renderer))
-	// r.HandleFunc("/contact", contactHandler(renderer))
+
+	setupAPIRoutes(r)
 
 	// Serve on port 8080
 	addr := net.JoinHostPort("", "8080")
 	fmt.Println("Listening on", addr)
 	http.ListenAndServe(addr, r)
+}
+
+func setupAPIRoutes(mux *chi.Mux) {
+	// v1 users route
+	mux.Route("/shepherd/api/v1/users", func(r chi.Router) {
+		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+			w.Write([]byte("This is the GET /users route"))
+		})
+	})
+	// v1 groups route
+	mux.Route("/shepherd/api/v1/groups", func(r chi.Router) {
+		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+			w.Write([]byte("This is the GET /groups route"))
+		})
+	})
 }
