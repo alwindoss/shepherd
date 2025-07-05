@@ -28,7 +28,7 @@ dev:
 
 .PHONY: setup
 setup:
-	cd ui && npm i
+	
 	go mod tidy
 	go get -v ./...
 
@@ -37,6 +37,14 @@ copy: build
 	@echo "Copying to:" ${GOBIN}
 	cp ./bin/shepherd ${GOBIN}
 
+.PHONY: build-ui
+build-ui:
+	cd ui && npm i
+
 .PHONY: package
 package:
 	docker build -t $(DOCKER_REPOSITORY_OWNER)/$(BINARY_NAME):$(VERSION) .
+
+.PHONY: docker
+docker:
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GOBUILD) -o ./$(BINARY_LOC)/ -v ./cmd/$(BINARY_NAME)/...
