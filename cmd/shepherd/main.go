@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"io/fs"
 	"log"
+	"net"
 	"net/http"
 
 	"github.com/alwindoss/shepherd"
@@ -48,5 +50,7 @@ func main() {
 	// r.HandleFunc("/contact", contactHandler(renderer))
 
 	// Serve on port 8080
-	http.ListenAndServe(":8080", r)
+	addr := net.JoinHostPort("", "8080")
+	fmt.Println("Listening on", addr)
+	http.ListenAndServe(addr, r)
 }

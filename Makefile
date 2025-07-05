@@ -14,12 +14,15 @@ run: build
 
 .PHONY: dev
 dev:
-	go tool air
+	go tool task --parallel backend frontend
 
 .PHONY: setup
 setup:
+	cd ui && npm i
 	go mod tidy
+	go get -v ./...
 
 .PHONY: copy
 copy: build
-	cp ./bin/shepherd /home/alwin/Sandbox/opt/go/bin/
+	@echo "Copying to:" ${GOBIN}
+	cp ./bin/shepherd ${GOBIN}
