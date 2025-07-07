@@ -9,9 +9,8 @@ DOCKER_REPOSITORY_OWNER=alwindoss
 VERSION=0.0.1
 
 .PHONY: build
-build: clean
-	cd ui && npm run build
-	go build -o bin/ ./cmd/shepherd/...
+build: generate clean
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/ ./cmd/shepherd/...
 
 .PHONY: clean
 clean:
@@ -24,21 +23,16 @@ run: build
 
 .PHONY: dev
 dev:
-	go tool task --parallel backend frontend
+	go tool air
 
 .PHONY: setup
 setup:
 	go mod tidy
 	go get -v ./...
 
-.PHONY: copy
-copy: build
-	@echo "Copying to:" ${GOBIN}
-	cp ./bin/shepherd ${GOBIN}
-
-.PHONY: build-ui
-build-ui:
-	cd ui && npm i && npm run build
+.PHONY: generate
+generate:
+	go tool templ generate
 
 .PHONY: package
 package:

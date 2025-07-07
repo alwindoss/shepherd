@@ -3,7 +3,7 @@ FROM golang:1.24.4 AS builder
 WORKDIR /go/src/app
 COPY . .
 RUN make setup
-RUN make docker
+RUN make
 
 FROM gcr.io/distroless/static-debian12
 WORKDIR /root/

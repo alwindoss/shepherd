@@ -2,22 +2,26 @@ package main
 
 import (
 	"fmt"
-	"io/fs"
-	"log"
 	"net"
 	"net/http"
 
-	"github.com/alwindoss/shepherd"
+	"github.com/alwindoss/shepherd/web/pages"
 	"github.com/go-chi/chi/v5"
 )
 
 func main() {
 	r := chi.NewMux()
-	webFS, err := fs.Sub(shepherd.WebFS, "web")
-	if err != nil {
-		log.Fatal(err)
-	}
-	r.Handle("/*", http.FileServer(http.FS(webFS)))
+	// webFS, err := fs.Sub(shepherd.WebFS, "web")
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// r.Handle("/*", http.FileServer(http.FS(webFS)))
+	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		pages.HomePage().Render(r.Context(), w)
+	})
+	r.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request) {
+		pages.AboutPage().Render(r.Context(), w)
+	})
 
 	setupAPIRoutes(r)
 
