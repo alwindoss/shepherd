@@ -9,7 +9,7 @@ DOCKER_REPOSITORY_OWNER=alwindoss
 VERSION=0.0.1
 
 .PHONY: build
-build: clean generate
+build: generate
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/ ./cmd/shepherd/...
 
 .PHONY: clean
