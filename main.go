@@ -285,4 +285,3 @@ func handleGoogleCallback(c *gin.Context) {
 	// Redirect into the app (dashboard)
 	c.Redirect(http.StatusFound, "/dashboard")
 }
-
