@@ -3,12 +3,14 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 export default function DashboardPage() {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
+        // only redirect to /login when auth has finished and there's no user
+        if (loading) return;
         if (!user) navigate('/login');
-    }, [user, navigate]);
+    }, [user, loading, navigate]);
 
     return (
         <>

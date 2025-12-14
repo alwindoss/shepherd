@@ -17,12 +17,14 @@ export default function SignupPage() {
       const res = await fetch("/api/signup", {
         method: "POST",
         headers: { "content-type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ name, email, password }),
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || "signup failed");
       setUser(json.user || null);
-      await fetchUser();
+      // refresh background auth state but don't block navigation
+      fetchUser().catch(() => {});
       navigate("/dashboard");
     } catch (err: any) {
       setError(err.message);
