@@ -2,7 +2,11 @@
 
 build:
 	@echo "Building the project..."
-	go build -o bin/
+	@echo "Building UI..."
+	cd ui && npm ci && npm run build
+
+	@echo "Building Go binary..."
+	go build -o bin/shepherd
 
 run: build
 	@echo "Running the project..."
