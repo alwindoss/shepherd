@@ -23,19 +23,22 @@ type MemberHandler struct {
 
 func (mh *MemberHandler) Index(w http.ResponseWriter, r *http.Request) {
 	m1 := members.Member{
-		ID:   "1",
-		Name: "Alwin Doss",
-		Role: "Treasurer",
+		ID:    "1",
+		Name:  "John Doe",
+		Role:  "Treasurer",
+		Email: "john.doe@email.com",
 	}
 	m2 := members.Member{
-		ID:   "1",
-		Name: "Alwin Doss",
-		Role: "Treasurer",
+		ID:    "2",
+		Name:  "Alice Johnson",
+		Role:  "President",
+		Email: "alice.johnson@email.com",
 	}
 	m3 := members.Member{
-		ID:   "1",
-		Name: "Alwin Doss",
-		Role: "Treasurer",
+		ID:    "3",
+		Name:  "Bob Smith",
+		Role:  "Secretary",
+		Email: "bob.smith@email.com",
 	}
 	var mbrs []members.Member
 	mbrs = append(mbrs, m1)
