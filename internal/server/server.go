@@ -44,7 +44,7 @@ func Start(cfg *Config) error {
 	r.Get("/pages/login", pgHdlr.LoginPageHandler)
 	r.Post("/pages/login", pgHdlr.LoginFormHandler)
 
-	r.Post("/sessions/login", hdlr.LoginHandler)
+	// r.Post("/sessions/login", hdlr.LoginHandler)
 	r.Post("/sessions/refresh", hdlr.RefreshHandler)
 	r.Post("/sessions/logout", hdlr.LogoutHandler)
 

@@ -91,6 +91,7 @@ func (ph *PageHandler) LoginFormHandler(w http.ResponseWriter, r *http.Request) 
 		HttpOnly: true,
 		SameSite: http.SameSiteLaxMode,
 		Secure:   true,
+		Path:     "/",
 	})
 
 	// http.RedirectHandler("/pages/welcome", http.StatusPermanentRedirect)
