@@ -52,7 +52,15 @@ func (mh *MemberHandler) New(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(members.New(m1)).ServeHTTP(w, r)
 }
 func (mh *MemberHandler) Create(w http.ResponseWriter, r *http.Request) {}
-func (mh *MemberHandler) Show(w http.ResponseWriter, r *http.Request)   {}
+func (mh *MemberHandler) Show(w http.ResponseWriter, r *http.Request) {
+	m1 := members.Member{
+		ID:    "1",
+		Name:  "Alwin Doss",
+		Role:  "Treasurer",
+		Email: "alwin@email.com",
+	}
+	templ.Handler(members.Show("Member Details", m1, "/")).ServeHTTP(w, r)
+}
 func (mh *MemberHandler) Edit(w http.ResponseWriter, r *http.Request) {
 	m1 := members.Member{
 		ID:    "1",
