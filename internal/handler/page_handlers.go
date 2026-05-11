@@ -103,11 +103,13 @@ func (ph *PageHandler) WelcomePageHandler(w http.ResponseWriter, r *http.Request
 	if err != nil {
 		if err == http.ErrNoCookie {
 			// If the cookie is not set, return an unauthorized status
-			w.WriteHeader(http.StatusUnauthorized)
+			// w.WriteHeader(http.StatusUnauthorized)
+			http.Redirect(w, r, "/pages/login", http.StatusSeeOther)
 			return
 		}
 		// For any other type of error, return a bad request status
-		w.WriteHeader(http.StatusBadRequest)
+		// w.WriteHeader(http.StatusBadRequest)
+		http.Redirect(w, r, "/pages/login", http.StatusSeeOther)
 		return
 	}
 
@@ -126,14 +128,17 @@ func (ph *PageHandler) WelcomePageHandler(w http.ResponseWriter, r *http.Request
 	})
 	if err != nil {
 		if err == jwt.ErrSignatureInvalid {
-			w.WriteHeader(http.StatusUnauthorized)
+			// w.WriteHeader(http.StatusUnauthorized)
+			http.Redirect(w, r, "/pages/login", http.StatusSeeOther)
 			return
 		}
-		w.WriteHeader(http.StatusBadRequest)
+		// w.WriteHeader(http.StatusBadRequest)
+		http.Redirect(w, r, "/pages/login", http.StatusSeeOther)
 		return
 	}
 	if !tkn.Valid {
-		w.WriteHeader(http.StatusUnauthorized)
+		// w.WriteHeader(http.StatusUnauthorized)
+		http.Redirect(w, r, "/pages/login", http.StatusSeeOther)
 		return
 	}
 	// Finally, return the welcome message to the user, along with their
@@ -170,7 +175,7 @@ func (ph *PageHandler) WelcomePageHandler(w http.ResponseWriter, r *http.Request
 		},
 	}
 	templ.Handler(layouts.Default(pages.HomePage(services), &data.PageData{
-		Title: "About",
+		Title: "Shepherd | Home",
 	})).ServeHTTP(w, r)
 
 }
