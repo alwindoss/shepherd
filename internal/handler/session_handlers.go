@@ -178,7 +178,8 @@ func (sh *SessionHandler) RefreshHandler(w http.ResponseWriter, r *http.Request)
 		Expires:  expirationTime,
 		HttpOnly: true,
 		SameSite: http.SameSiteLaxMode,
-		Secure:   true,
+		// Secure:   true,
+		Path: "/",
 	})
 }
 

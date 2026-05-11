@@ -9,7 +9,6 @@ RUN npm run build
 FROM golang:1.26.2-bookworm AS go-builder
 WORKDIR /go/src/app
 COPY . .
-RUN rm -rf web
 COPY --from=ui-builder /app/public ./public 
 RUN make setup
 RUN make generate
