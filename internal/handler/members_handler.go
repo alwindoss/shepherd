@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 	"shepherd/templates/pages/members"
 
@@ -59,7 +60,8 @@ func (mh *MemberHandler) Show(w http.ResponseWriter, r *http.Request) {
 		Role:  "Treasurer",
 		Email: "alwin@email.com",
 	}
-	templ.Handler(members.Show("Member Details", m1, "/")).ServeHTTP(w, r)
+	deletePath := fmt.Sprintf("/members/%s", m1.ID)
+	templ.Handler(members.Show("Member Details", m1, deletePath)).ServeHTTP(w, r)
 }
 func (mh *MemberHandler) Edit(w http.ResponseWriter, r *http.Request) {
 	m1 := members.Member{
