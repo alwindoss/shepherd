@@ -1,0 +1,99 @@
+networks:
+  shepherd-net:
+    driver: bridge
+
+services:
+  # --- Reverse Proxy (Entry Point) ---
+  # caddy:
+  #   image: caddy:2-alpine
+  #   container_name: shepherd-proxy
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #     - "443:443/udp" # For HTTP/3 support
+  #   volumes:
+  #     - ./Caddyfile:/etc/caddy/Caddyfile
+  #     - ./data/caddy_data:/data
+  #     - ./data/caddy_config:/config
+  #   networks:
+  #     - shepherd-net
+  #   depends_on:
+  #     - shepherd-app
+
+  # --- The Go Application ---
+  shepherd-app:
+    container_name: shepherd-app
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Containerfile
+    environment:
+      - DB_URL=postgres://shepherd_user:shepherd_password@postgres:5432/shepherd_db?sslmode=disable
+      - APP_ENV=production
+      - JWT_SECRET=${JWT_SECRET}
+      - PORT=9090
+    ports:
+      - 9090:9090
+    networks:
+      - shepherd-net
+    depends_on:
+      postgres:
+        condition: service_healthy
+  # --- Database ---
+  postgres:
+    image: postgres:16.3
+    user: "${UID}:${GID}" # Passes your host user ID to the container
+    container_name: shepherd-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./tmp/data/postgres:/var/lib/postgresql/data:Z
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql:ro,Z # Mount the init script
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - shepherd-net
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pgadmin@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=pgadmin
+    ports:
+      - 8081:80
+    networks:
+      - shepherd-net
+
+  # --- Cache (Valkey) ---
+  # valkey:
+  #   image: valkey/valkey:7.2-alpine
+  #   container_name: shepherd-cache
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./data/valkey:/data
+  #   command: ["valkey-server", "--appendonly", "yes"]
+  #   networks:
+  #     - shepherd-net
+
+  # # --- Messaging (NATS JetStream) ---
+  # nats:
+  #   image: nats:2.10-alpine
+  #   container_name: shepherd-nats
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./data/nats:/data
+  #   command: ["-js", "-sd", "/data"] # Enable JetStream and set storage dir
+  #   networks:
+  #     - shepherd-net
