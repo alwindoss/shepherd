@@ -4,6 +4,10 @@ version: '3'
 
 vars:
   GREETING: Hello, world!
+  APPLICATION_NAME: shepherd
+  BUILD_ENVS: CGO_ENABLED=0 GOOS=linux GOARCH=amd64
+  BUILD_FLAGS: -o
+  BINARY_LOC: bin
 
 tasks:
   default:
@@ -16,7 +20,7 @@ tasks:
       - npx @tailwindcss/cli -i ./frontend/assets/styles/input.css -o ./public/styles/output.css
   build-backend:
     cmds:
-      - go build -o ./bin/shepherd .
+      - "{{.BUILD_ENVS}} go build {{.BUILD_FLAGS}} ./{{.BINARY_LOC}}/{{.APPLICATION_NAME}} ."
   generate:
     cmds:
       - go tool templ generate
@@ -27,7 +31,7 @@ tasks:
       - task: build-backend
   
   run:
-    cmd: ./bin/shepherd
+    cmd: ./{{.BINARY_LOC}}/{{.APPLICATION_NAME}}
 
   frontend-watch:
     cmds:
@@ -44,3 +48,16 @@ tasks:
       - task: frontend-watch
       - task: templ-watch
       - task: backend-watch
+  setup:
+    cmds:
+      - go mod download
+  container-build:
+    cmds:
+      - podman build -t {{.APPLICATION_NAME}}:local .
+  container-run:
+    cmds:
+      - task: container-build
+      - podman run --network=host -p 9090:9090 -e DB_URL=postgres://shepherd_user:shepherd_password@localhost:5432/shepherd_db?sslmode=disable -e APP_ENV=production -e JWT_SECRET=$JWT_SECRET {{.APPLICATION_NAME}}:local
+  container-run-no-build:
+    cmds:
+      - podman run -p 9090:9090 {{.APPLICATION_NAME}}:local
