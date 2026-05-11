@@ -51,7 +51,7 @@ func MemberIndex(members []Member) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"sm:flex sm:items-center\"><div class=\"sm:flex-auto\"><h1 class=\"text-2xl font-semibold text-gray-900\">Members</h1></div><div class=\"mt-4 sm:ml-16 sm:mt-0\"><a href=\"/members/new\" class=\"block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-500\">Add Member</a></div></div><div class=\"mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg bg-white\"><table class=\"min-w-full divide-y divide-gray-300\"><thead class=\"bg-gray-50\"><tr><th class=\"py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900\">Name</th><th class=\"px-3 py-3.5 text-left text-sm font-semibold text-gray-900\">Role</th><th class=\"relative py-3.5 pl-3 pr-4 sm:pr-6\"></th></tr></thead> <tbody class=\"divide-y divide-gray-200\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"sm:flex sm:items-center\"><div class=\"sm:flex-auto\"><h1 class=\"text-2xl font-semibold text-gray-900\">Members</h1></div><div class=\"mt-4 sm:ml-16 sm:mt-0\"><a href=\"/members/new\" class=\"block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-500\"><i class=\"bi bi-plus\"></i> <span class=\"ml-1\">Add Member</span></a></div></div><div class=\"mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg bg-white\"><table class=\"min-w-full divide-y divide-gray-300\"><thead class=\"bg-gray-50\"><tr><th class=\"py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900\">Name</th><th class=\"px-3 py-3.5 text-left text-sm font-semibold text-gray-900\">Role</th><th class=\"relative py-3.5 pl-3 pr-4 sm:pr-6\"></th></tr></thead> <tbody class=\"divide-y divide-gray-200\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -63,7 +63,7 @@ func MemberIndex(members []Member) templ.Component {
 				var templ_7745c5c3_Var3 string
 				templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(m.Name)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/pages/members/index.templ`, Line: 37, Col: 115}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/pages/members/index.templ`, Line: 40, Col: 94}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 				if templ_7745c5c3_Err != nil {
@@ -76,7 +76,7 @@ func MemberIndex(members []Member) templ.Component {
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(m.Role)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/pages/members/index.templ`, Line: 38, Col: 98}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/pages/members/index.templ`, Line: 41, Col: 77}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
@@ -89,7 +89,7 @@ func MemberIndex(members []Member) templ.Component {
 				var templ_7745c5c3_Var5 templ.SafeURL
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL("/members/" + m.ID))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/pages/members/index.templ`, Line: 40, Col: 75}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/pages/members/index.templ`, Line: 43, Col: 51}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -102,7 +102,7 @@ func MemberIndex(members []Member) templ.Component {
 				var templ_7745c5c3_Var6 templ.SafeURL
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL("/members/" + m.ID + "/edit"))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/pages/members/index.templ`, Line: 41, Col: 85}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/pages/members/index.templ`, Line: 44, Col: 61}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
