@@ -40,13 +40,22 @@ func Start(cfg *Config) error {
 	// we will implement these handlers in the next sections
 	r.Get("/", pgHdlr.HomePageHandler)
 	r.Get("/about", pgHdlr.AboutPageHandler)
-	r.Get("/pages/welcome", pgHdlr.WelcomePageHandler)
+	r.Get("/dashboard", pgHdlr.DashboardPageHandler)
 	r.Get("/pages/login", pgHdlr.LoginPageHandler)
 	r.Post("/pages/login", pgHdlr.LoginFormHandler)
 
 	r.Post("/sessions/login", hdlr.LoginHandler)
 	r.Post("/sessions/refresh", hdlr.RefreshHandler)
 	r.Post("/sessions/logout", hdlr.LogoutHandler)
+
+	memHdlr := handler.NewMemberHandler(nil)
+	configureMemberRoutes(r, memHdlr)
+
+	evntHdlr := handler.NewEventHandler(nil)
+	configureEventRoutes(r, evntHdlr)
+
+	donHdlr := handler.NewDonationHandler(nil)
+	configureDonationsRoutes(r, donHdlr)
 
 	// start the server on port 8000
 	return http.ListenAndServe(cfg.Addr, r)

@@ -1,0 +1,23 @@
+package pages
+
+import "shepherd/templates/layouts"
+import "shepherd/data"
+
+type Member struct {
+    ID string
+    Name string
+    Role string
+}
+
+templ Dashboard() {
+    @layouts.PageLayout(&data.PageData{
+        Title: "Dashboard",
+    }) {
+        <div class="sm:flex sm:items-center">
+            <h1>Here is the header</h1>
+        </div>
+        <div class="mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg bg-white">
+            <h1>Here is the content</h1>
+        </div>
+    }
+}
