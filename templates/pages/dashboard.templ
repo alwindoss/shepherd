@@ -3,11 +3,6 @@ package pages
 import "shepherd/templates/layouts"
 import "shepherd/data"
 
-type Member struct {
-    ID string
-    Name string
-    Role string
-}
 
 templ Dashboard() {
     @layouts.PageLayout(&data.PageData{

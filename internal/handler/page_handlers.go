@@ -90,7 +90,7 @@ func (ph *PageHandler) LoginFormHandler(w http.ResponseWriter, r *http.Request) 
 		Expires:  expirationTime,
 		HttpOnly: true,
 		SameSite: http.SameSiteLaxMode,
-		// Secure:   true,
+		Secure:   true,
 	})
 
 	// http.RedirectHandler("/pages/welcome", http.StatusPermanentRedirect)
@@ -178,5 +178,6 @@ func (ph *PageHandler) DashboardPageHandler(w http.ResponseWriter, r *http.Reque
 	// 	Title: "Shepherd | Home",
 	// })).ServeHTTP(w, r)
 	templ.Handler(pages.Dashboard()).ServeHTTP(w, r)
+	// templ.Handler(members.MemberIndex(mbrs)).ServeHTTP(w, r)
 
 }
