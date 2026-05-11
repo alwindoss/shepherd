@@ -8,9 +8,9 @@ package layouts
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "sekai/templates/partials"
-import "sekai/data"
-import "sekai/templates/components"
+import "shepherd/templates/partials"
+import "shepherd/data"
+import "shepherd/templates/components"
 
 func Default(content templ.Component, data *data.PageData) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {

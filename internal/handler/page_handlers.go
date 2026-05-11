@@ -2,9 +2,9 @@ package handler
 
 import (
 	"net/http"
-	"sekai/data"
-	"sekai/templates/layouts"
-	"sekai/templates/pages"
+	"shepherd/data"
+	"shepherd/templates/layouts"
+	"shepherd/templates/pages"
 	"time"
 
 	"github.com/a-h/templ"

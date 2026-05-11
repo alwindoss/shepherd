@@ -3,7 +3,7 @@ package server
 import (
 	"io/fs"
 	"net/http"
-	"sekai/internal/handler"
+	"shepherd/internal/handler"
 	"time"
 
 	"github.com/go-chi/chi/v5"

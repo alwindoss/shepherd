@@ -16,7 +16,7 @@ tasks:
       - npx @tailwindcss/cli -i ./frontend/assets/styles/input.css -o ./public/styles/output.css
   build-backend:
     cmds:
-      - go build -o ./bin/sekai .
+      - go build -o ./bin/shepherd .
   generate:
     cmds:
       - go tool templ generate
@@ -27,7 +27,7 @@ tasks:
       - task: build-backend
   
   run:
-    cmd: ./bin/sekai
+    cmd: ./bin/shepherd
 
   frontend-watch:
     cmds:
