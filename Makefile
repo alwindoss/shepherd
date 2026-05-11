@@ -6,7 +6,7 @@ setup:
 build:
 	go tool task build
 	
-build-backend:
+build-backend: generate
 	go tool task build-backend
 	
 build-ui:
@@ -19,7 +19,7 @@ run: build-ui generate build-backend
 	go tool task run
 
 dev:
-	go tool task backend-watch
+	go tool air
 
 container-build:
 	go tool task container-build
