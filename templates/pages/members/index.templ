@@ -4,13 +4,19 @@ import "shepherd/templates/layouts"
 import "shepherd/data"
 
 type Member struct {
-	ID    string
-	Name  string
-	Role  string
-	Email string
+	ID                 string
+	FirstName          string
+	LastName           string
+	Role               string
+	Email              string
+	Phone              string
+	AadharNumber       string
+	PAN                string
+	Address            string
+	RequestedAnonymity bool
 }
 
-templ MemberIndex(members []Member) {
+templ Index(members []Member) {
 	@layouts.PageLayout(&data.PageData{
 		Title: "Members",
 	}) {
@@ -20,7 +26,7 @@ templ MemberIndex(members []Member) {
 			</div>
 			<div class="mt-4 sm:ml-16 sm:mt-0">
 				<a href="/members/new" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-500">
-					<i class="bi bi-plus" ></i>
+					<i class="bi bi-plus"></i>
 					<span class="ml-1">Add Member</span>
 				</a>
 			</div>
@@ -29,16 +35,36 @@ templ MemberIndex(members []Member) {
 			<table class="min-w-full divide-y divide-gray-300">
 				<thead class="bg-gray-50">
 					<tr>
-						<th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">Name</th>
+						<th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">First Name</th>
+						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Last Name</th>
 						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Role</th>
+						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Email</th>
+						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Phone</th>
+						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Aadhar Number</th>
+						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">PAN</th>
+						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Address</th>
+						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Requested Anonymity</th>
 						<th class="relative py-3.5 pl-3 pr-4 sm:pr-6"></th>
 					</tr>
 				</thead>
 				<tbody class="divide-y divide-gray-200">
 					for _, m := range members {
 						<tr>
-							<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">{ m.Name }</td>
+							<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">{ m.FirstName }</td>
+							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.LastName }</td>
 							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.Role }</td>
+							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.Email }</td>
+							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.Phone }</td>
+							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.AadharNumber }</td>
+							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.PAN }</td>
+							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.Address }</td>
+                            if m.RequestedAnonymity {
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Yes</td>
+                            }
+                            else {
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">No</td>
+                            }
+							
 							<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium">
 								<a href={ templ.SafeURL("/members/" + m.ID) } class="text-indigo-600 hover:text-indigo-900 mr-4">Show</a>
 								<a href={ templ.SafeURL("/members/" + m.ID + "/edit") } class="text-gray-600 hover:text-gray-900">Edit</a>

@@ -14,8 +14,12 @@ templ Edit(member Member) {
             
             <form action={ templ.SafeURL("/members") } method="PATCH" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Full Name</label>
-                    <input type="text" name="name" value={ member.Name } class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2" />
+                    <label class="block text-sm font-medium text-gray-700">First Name</label>
+                    <input type="text" name="firstName" value={ member.FirstName } class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Last Name</label>
+                    <input type="text" name="lastName" value={ member.LastName } class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2" />
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Email</label>

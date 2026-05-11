@@ -3,29 +3,66 @@ package members
 import "shepherd/templates/layouts"
 import "shepherd/data"
 
-
 templ New(member Member) {
-    @layouts.PageLayout(&data.PageData{
-        Title: "New Member",
-    }) {
-    // @PageLayout(templ.If(isEdit, "Edit Member", "New Member")) {
-        <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-sm border border-gray-200">
-            <h2 class="text-xl font-bold mb-6">{ "New Member" } </h2>
-            
-            <form action={ templ.SafeURL("/members") } method="POST" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Full Name</label>
-                    <input type="text" name="name" value={ member.Name } class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" name="email" value={ member.Email } class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2" />
-                </div>
-                <div class="flex justify-end gap-3 pt-4">
-                    <a href="/members" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-500">Cancel</a>
-                    <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-indigo-500">Save Member</button>
-                </div>
-            </form>
-        </div>
-    }
+	@layouts.PageLayout(&data.PageData{
+		Title: "New Member",
+	}) {
+		// @PageLayout(templ.If(isEdit, "Edit Member", "New Member")) {
+		<div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+			<h2 class="text-xl font-bold mb-6">{ "New Member" } </h2>
+			<form action={ templ.SafeURL("/members") } method="POST" class="space-y-4">
+				<div>
+					<label class="block text-sm font-medium text-gray-700">First Name</label>
+					<input type="text" name="firstName" value={ member.FirstName } class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2"/>
+				</div>
+				<div>
+					<label class="block text-sm font-medium text-gray-700">Last Name</label>
+					<input type="text" name="lastName" value={ member.LastName } class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2"/>
+				</div>
+				<div>
+					<label class="block text-sm font-medium text-gray-700">Email</label>
+					<input type="email" name="emailAddress" value={ member.Email } class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2"/>
+				</div>
+				<div>
+					<label class="block text-sm font-medium text-gray-700">Phone</label>
+					<input type="text" name="phoneNumber" value={ member.Phone } class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2"/>
+				</div>
+				<div>
+					<label class="block text-sm font-medium text-gray-700">Aadhar Number</label>
+					<input type="text" name="aadharNumber" value={ member.AadharNumber } class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2"/>
+				</div>
+				<div>
+					<label class="block text-sm font-medium text-gray-700">PAN</label>
+					<input type="text" name="pan" value={ member.PAN } class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2"/>
+				</div>
+				<div>
+					<label class="block text-sm font-medium text-gray-700">Address</label>
+					<textarea name="address" value={ member.Address } rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2"></textarea>
+				</div>
+				// <div>
+				// 	<label class="block text-sm font-medium text-gray-700">Requested Anonymity</label>
+				// 	<input type="checkbox" name="requestedAnonymity" checked={ member.RequestedAnonymity } class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2"/>
+				// </div>
+				<div class="relative flex items-start">
+					<div class="flex h-6 items-center">
+						<input
+							id="requestedAnonymity"
+							name="requestedAnonymity"
+							type="checkbox"
+							checked={ member.RequestedAnonymity }
+							class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer"
+						/>
+					</div>
+					<div class="ml-3 text-sm leading-6">
+						<label for="requestedAnonymity" class="font-medium text-gray-700 cursor-pointer">Requested Anonymity</label>
+						<p class="text-gray-500">The member's details will be hidden from public records.</p>
+					</div>
+				</div>
+				<div class="flex justify-end gap-3 pt-4">
+					<a href="/members" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-500">Cancel</a>
+					<button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-indigo-500">Save Member</button>
+				</div>
+			</form>
+		</div>
+	}
 }
