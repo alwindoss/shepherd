@@ -1,0 +1,27 @@
+package layouts
+
+import "sekai/templates/partials"
+import "sekai/data"
+import "sekai/templates/components"
+
+templ Default(content templ.Component, data *data.PageData) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            @partials.CSS()
+			@partials.HTMX()
+			<title>{ data.Title }</title>
+		</head>
+		<body>
+			@components.Navbar()
+			// <div id="heading">
+			// 	@partials.Header()
+			// </div>
+			<div id="contents">
+				@content
+			</div>
+		</body>
+	</html>
+}
