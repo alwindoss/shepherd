@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 
-version: '3'
+version: "3"
 
 vars:
   GREETING: Hello, world!
@@ -29,7 +29,7 @@ tasks:
       - task: build-ui
       - task: generate
       - task: build-backend
-  
+
   run:
     cmd: ./{{.BINARY_LOC}}/{{.APPLICATION_NAME}}
 
@@ -44,12 +44,14 @@ tasks:
       - go tool air
   dev:
     desc: Run the application in dev mode
+    cmd: setup
     deps:
       - task: frontend-watch
       - task: templ-watch
       - task: backend-watch
   setup:
     cmds:
+      - npm i
       - go mod download
   container-build:
     cmds:

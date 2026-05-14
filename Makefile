@@ -18,7 +18,7 @@ generate:
 run: build-ui generate build-backend
 	go tool task run
 
-dev:
+dev: setup
 	go tool air
 
 container-build:
