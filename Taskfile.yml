@@ -44,11 +44,8 @@ tasks:
       - go tool air
   dev:
     desc: Run the application in dev mode
-    cmd: setup
-    deps:
-      - task: frontend-watch
-      - task: templ-watch
-      - task: backend-watch
+    cmd: go tool air
+    
   setup:
     cmds:
       - npm i

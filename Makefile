@@ -19,7 +19,7 @@ run: build-ui generate build-backend
 	go tool task run
 
 dev: setup
-	go tool air
+	go tool task dev
 
 container-build:
 	go tool task container-build
