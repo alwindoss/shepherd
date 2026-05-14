@@ -2,6 +2,7 @@ package server
 
 import (
 	"io/fs"
+	"log/slog"
 	"net/http"
 	"shepherd/internal/handler"
 	"time"
@@ -57,6 +58,8 @@ func Start(cfg *Config) error {
 	donHdlr := handler.NewDonationHandler(nil)
 	configureDonationsRoutes(r, donHdlr)
 
+	attr := slog.String("Host:Port", cfg.Addr)
+	slog.Info("Shepherd server started on", attr)
 	// start the server on port 8000
 	return http.ListenAndServe(cfg.Addr, r)
 }
