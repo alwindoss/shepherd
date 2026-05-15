@@ -1,14 +1,18 @@
 package server
 
 import (
+	"database/sql"
 	"io/fs"
 	"log/slog"
 	"net/http"
 	"shepherd/internal/handler"
+	"shepherd/internal/repository"
+	"shepherd/internal/service"
 	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	_ "github.com/lib/pq"
 )
 
 func Start(cfg *Config) error {
@@ -49,7 +53,14 @@ func Start(cfg *Config) error {
 	r.Post("/sessions/refresh", hdlr.RefreshHandler)
 	r.Post("/sessions/logout", hdlr.LogoutHandler)
 
-	memHdlr := handler.NewMemberHandler(nil)
+	db, err := sql.Open("postgres", "postgres://shepherd_user:shepherd_password@localhost:5432/shepherd_db?sslmode=disable")
+	if err != nil {
+		return err
+	}
+
+	memRepo := repository.NewMembersRepository(db)
+	memSvc := service.NewMemberService(memRepo)
+	memHdlr := handler.NewMemberHandler(memSvc)
 	configureMemberRoutes(r, memHdlr)
 
 	evntHdlr := handler.NewEventHandler(nil)

@@ -7,7 +7,6 @@ type Member struct {
 	ID                 string
 	FirstName          string
 	LastName           string
-	Role               string
 	Email              string
 	Phone              string
 	AadharNumber       string
@@ -37,7 +36,6 @@ templ Index(members []Member) {
 					<tr>
 						<th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">First Name</th>
 						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Last Name</th>
-						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Role</th>
 						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Email</th>
 						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Phone</th>
 						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Aadhar Number</th>
@@ -52,7 +50,6 @@ templ Index(members []Member) {
 						<tr>
 							<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">{ m.FirstName }</td>
 							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.LastName }</td>
-							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.Role }</td>
 							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.Email }</td>
 							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.Phone }</td>
 							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.AadharNumber }</td>

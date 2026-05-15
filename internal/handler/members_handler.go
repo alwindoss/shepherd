@@ -3,17 +3,20 @@ package handler
 import (
 	"fmt"
 	"net/http"
+	"shepherd/internal/service"
 	"shepherd/templates/pages/members"
+	"strconv"
 
 	"github.com/a-h/templ"
 )
 
 type MemberService interface {
+	FetchAllMembers() ([]*service.Member, error)
 }
 
 func NewMemberHandler(svc MemberService) *MemberHandler {
 	mh := new(MemberHandler)
-
+	mh.svc = svc
 	return mh
 }
 
@@ -22,31 +25,25 @@ type MemberHandler struct {
 }
 
 func (mh *MemberHandler) Index(w http.ResponseWriter, r *http.Request) {
-	m1 := members.Member{
-		ID:        "1",
-		FirstName: "John",
-		LastName:  "Doe",
-		Role:      "Treasurer",
-		Email:     "john.doe@email.com",
-	}
-	m2 := members.Member{
-		ID:        "2",
-		FirstName: "Alice",
-		LastName:  "Johnson",
-		Role:      "President",
-		Email:     "alice.johnson@email.com",
-	}
-	m3 := members.Member{
-		ID:        "3",
-		FirstName: "Bob",
-		LastName:  "Smith",
-		Role:      "Secretary",
-		Email:     "bob.smith@email.com",
+	svcMembers, err := mh.svc.FetchAllMembers()
+	if err != nil {
+		return
 	}
 	var mbrs []members.Member
-	mbrs = append(mbrs, m1)
-	mbrs = append(mbrs, m2)
-	mbrs = append(mbrs, m3)
+	for _, m := range svcMembers {
+		mem := members.Member{
+			ID:                 strconv.Itoa(m.ID),
+			FirstName:          m.FirstName,
+			LastName:           m.LastName,
+			Email:              m.Email,
+			Phone:              m.Phone,
+			AadharNumber:       m.AadharNumber,
+			PAN:                m.PAN,
+			Address:            m.Address,
+			RequestedAnonymity: m.RequestedAnnonimity,
+		}
+		mbrs = append(mbrs, mem)
+	}
 	templ.Handler(members.Index(mbrs)).ServeHTTP(w, r)
 }
 func (mh *MemberHandler) New(w http.ResponseWriter, r *http.Request) {
@@ -54,7 +51,6 @@ func (mh *MemberHandler) New(w http.ResponseWriter, r *http.Request) {
 		ID:        "1",
 		FirstName: "Alwin",
 		LastName:  "Doss",
-		Role:      "Treasurer",
 		Email:     "alwin@email.com",
 	}
 	templ.Handler(members.New(m1)).ServeHTTP(w, r)
@@ -80,7 +76,6 @@ func (mh *MemberHandler) Show(w http.ResponseWriter, r *http.Request) {
 		ID:        "1",
 		FirstName: "Alwin",
 		LastName:  "Doss",
-		Role:      "Treasurer",
 		Email:     "alwin@email.com",
 	}
 	deletePath := fmt.Sprintf("/members/%s", m1.ID)
@@ -91,7 +86,6 @@ func (mh *MemberHandler) Edit(w http.ResponseWriter, r *http.Request) {
 		ID:        "1",
 		FirstName: "Alwin",
 		LastName:  "Doss",
-		Role:      "Treasurer",
 		Email:     "alwin@email.com",
 	}
 	templ.Handler(members.Edit(m1)).ServeHTTP(w, r)
