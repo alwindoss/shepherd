@@ -1,2 +1,8 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css");
 @import "tailwindcss";
+@import "../../../node_modules/daisyui/daisyui";
+
+/* Optional: If you want to configure specific DaisyUI settings or themes in v4 */
+@theme {
+  /* You can customize theme variables here if needed */
+}
