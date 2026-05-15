@@ -4,72 +4,83 @@ import "shepherd/templates/layouts"
 import "shepherd/data"
 
 type Member struct {
-	ID                 string
-	FirstName          string
-	LastName           string
-	Email              string
-	Phone              string
-	AadharNumber       string
-	PAN                string
-	Address            string
-	RequestedAnonymity bool
+    ID                 string
+    FirstName          string
+    LastName           string
+    Email              string
+    Phone              string
+    AadharNumber       string
+    PAN                string
+    Address            string
+    RequestedAnonymity bool
 }
 
 templ Index(members []Member) {
-	@layouts.PageLayout(&data.PageData{
-		Title: "Members",
-	}) {
-		<div class="sm:flex sm:items-center">
-			<div class="sm:flex-auto">
-				<h1 class="text-2xl font-semibold text-gray-900">Members</h1>
-			</div>
-			<div class="mt-4 sm:ml-16 sm:mt-0">
-				<a href="/members/new" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-500">
-					<i class="bi bi-plus"></i>
-					<span class="ml-1">Add Member</span>
-				</a>
-			</div>
-		</div>
-		<div class="mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg bg-white">
-			<table class="min-w-full divide-y divide-gray-300">
-				<thead class="bg-gray-50">
-					<tr>
-						<th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">First Name</th>
-						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Last Name</th>
-						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Email</th>
-						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Phone</th>
-						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Aadhar Number</th>
-						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">PAN</th>
-						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Address</th>
-						<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Requested Anonymity</th>
-						<th class="relative py-3.5 pl-3 pr-4 sm:pr-6"></th>
-					</tr>
-				</thead>
-				<tbody class="divide-y divide-gray-200">
-					for _, m := range members {
-						<tr>
-							<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">{ m.FirstName }</td>
-							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.LastName }</td>
-							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.Email }</td>
-							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.Phone }</td>
-							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.AadharNumber }</td>
-							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.PAN }</td>
-							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.Address }</td>
-                            if m.RequestedAnonymity {
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Yes</td>
-                            }
-                            else {
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">No</td>
-                            }
-							
-							<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium">
-								<a href={ templ.SafeURL("/members/" + m.ID) } class="text-indigo-600 hover:text-indigo-900 mr-4">Show</a>
-								<a href={ templ.SafeURL("/members/" + m.ID + "/edit") } class="text-gray-600 hover:text-gray-900">Edit</a>
-							</td>
-						</tr>
-					}
-				</tbody>
-			</table>
-		</div>
-	}
+    @layouts.PageLayout(&data.PageData{
+        Title: "Members",
+    }) {
+        <!-- FULL-WIDTH HEADER BREAKOUT -->
+        <!-- Pushes the header container entirely to the screen edges -->
+        <div class="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen bg-gray-50 px-6 sm:px-8 mb-6">
+            <div class="sm:flex sm:items-center sm:justify-between py-4 border-b border-gray-200">
+                <div class="sm:flex-auto">
+                    <h1 class="text-2xl font-semibold tracking-tight text-gray-900">Members</h1>
+                    <p class="mt-1 text-sm text-gray-500">A full directory of household accounts and access profiles.</p>
+                </div>
+                <div class="mt-4 sm:ml-16 sm:mt-0">
+                    <a href="/members/new" class="inline-flex items-center justify-center rounded-md bg-indigo-600 px-4 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition">
+                        <i class="bi bi-plus-lg mr-1.5"></i>
+                        Add Member
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FULL-WIDTH TABLE BREAKOUT -->
+        <!-- Matches the padding and alignment of the breakout block above -->
+        <div class="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen overflow-x-auto bg-white border-b border-gray-200 shadow-sm">
+            <div class="inline-block min-w-full align-middle">
+                <table class="min-w-full divide-y divide-gray-300">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <!-- Pad the outer columns by px-6/pl-6 to seamlessly mirror the header container rules above -->
+                            <th class="py-3.5 pl-6 pr-3 text-left text-sm font-semibold text-gray-900">First Name</th>
+                            <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Last Name</th>
+                            <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Email</th>
+                            <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Phone</th>
+                            <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Aadhar Number</th>
+                            <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">PAN</th>
+                            <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Address</th>
+                            <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Requested Anonymity</th>
+                            <th class="relative py-3.5 pl-3 pr-6 text-right text-sm font-medium">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 bg-white">
+                        for _, m := range members {
+                            <tr class="hover:bg-gray-50/70 transition-colors">
+                                <td class="whitespace-nowrap py-4 pl-6 pr-3 text-sm font-medium text-gray-900">{ m.FirstName }</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.LastName }</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.Email }</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.Phone }</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">[Aadhaar Redacted]</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.PAN }</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ m.Address }</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                    if m.RequestedAnonymity {
+                                        <span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20">Yes</span>
+                                    } else {
+                                        <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-500/10">No</span>
+                                    }
+                                </td>
+                                <td class="relative whitespace-nowrap py-4 pl-3 pr-6 text-right text-sm font-medium">
+                                    <a href={ templ.SafeURL("/members/" + m.ID) } class="text-indigo-600 hover:text-indigo-900 mr-4">Show</a>
+                                    <a href={ templ.SafeURL("/members/" + m.ID + "/edit") } class="text-gray-600 hover:text-gray-900">Edit</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
 }
